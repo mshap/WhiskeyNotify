@@ -1,0 +1,159 @@
+{
+    "products": [
+    {
+    "productId": "019880",
+    "storeInfo": {
+    "storeId": 331,
+    "quantity": 0,
+    "distance": 0,
+    "latitude": 37.648441,
+    "longitude": -77.61582,
+    "address": "3450-3452 Pump Road Suites 21 and 22 Henrico VA 23233",
+    "PhoneNumber": {
+    "AreaCode": "804",
+    "Prefix": "360",
+    "LineNumber": "2528",
+    "FormattedPhoneNumber": "(804) 360-2528"
+    },
+    "url": "/stores/331",
+    "address1": "3450-3452 Pump Road",
+    "address2": "Suites 21 and 22",
+    "city": "Henrico",
+    "state": "VA",
+    "zip": "23233",
+    "hours": "Mon-Sat 10 am-10 pm / Sun 10-7 pm",
+    "shoppingCenter": "Short Pump Crossing Shopping Center",
+    "closeForEcommerce": 0,
+    "counterService": false,
+    "wholesale": false
+    },
+    "nearbyStores": [
+    {
+    "storeId": 247,
+    "quantity": 21,
+    "distance": 2.9,
+    "latitude": 37.640499,
+    "longitude": -77.564229,
+    "address": "9685 West Broad Street Glen Allen VA 23060",
+    "PhoneNumber": {
+    "AreaCode": "804",
+    "Prefix": "527",
+    "LineNumber": "4210",
+    "FormattedPhoneNumber": "(804) 527-4210"
+    },
+    "url": "/stores/247",
+    "address1": "9685 West Broad Street",
+    "address2": null,
+    "city": "Glen Allen",
+    "state": "VA",
+    "zip": "23060",
+    "hours": "Mon-Sat 10 am-9 pm / Sun 10-7 pm",
+    "shoppingCenter": "Westpark Shopping Center",
+    "closeForEcommerce": 0,
+    "counterService": false,
+    "wholesale": false
+    },
+    {
+    "storeId": 366,
+    "quantity": 3,
+    "distance": 3.3,
+    "latitude": 37.605143,
+    "longitude": -77.59131,
+    "address": "1370 Gaskins Road RICHMOND VA 23233",
+    "PhoneNumber": {
+    "AreaCode": "804",
+    "Prefix": "754",
+    "LineNumber": "4024",
+    "FormattedPhoneNumber": "(804) 754-4024"
+    },
+    "url": "/stores/366",
+    "address1": "1370 Gaskins Road",
+    "address2": null,
+    "city": "RICHMOND",
+    "state": "VA",
+    "zip": "23233",
+    "hours": "Mon-Sat 10 am-9 pm / Sun 12-6 pm",
+    "shoppingCenter": "Gayton Crossing Center Cntr",
+    "closeForEcommerce": 0,
+    "counterService": false,
+    "wholesale": false
+    },
+    {
+    "storeId": 308,
+    "quantity": 2,
+    "distance": 3.4,
+    "latitude": 37.598761,
+    "longitude": -77.620953,
+    "address": "11252 Patterson Avenue Richmond VA 23238",
+    "PhoneNumber": {
+    "AreaCode": "804",
+    "Prefix": "754",
+    "LineNumber": "4046",
+    "FormattedPhoneNumber": "(804) 754-4046"
+    },
+    "url": "/stores/308",
+    "address1": "11252 Patterson Avenue",
+    "address2": null,
+    "city": "Richmond",
+    "state": "VA",
+    "zip": "23238",
+    "hours": "Mon-Sat 10 am-9 pm / Sun 12-6 pm",
+    "shoppingCenter": "Tuckahoe Village Shopping Center",
+    "closeForEcommerce": 0,
+    "counterService": false,
+    "wholesale": false
+    },
+    {
+    "storeId": 292,
+    "quantity": 3,
+    "distance": 4.2,
+    "latitude": 37.603599,
+    "longitude": -77.563354,
+    "address": "1521 Parham Road Richmond VA 23229-4604",
+    "PhoneNumber": {
+    "AreaCode": "804",
+    "Prefix": "662",
+    "LineNumber": "9053",
+    "FormattedPhoneNumber": "(804) 662-9053"
+    },
+    "url": "/stores/292",
+    "address1": "1521 Parham Road",
+    "address2": null,
+    "city": "Richmond",
+    "state": "VA",
+    "zip": "23229-4604",
+    "hours": "Mon-Sat 10 am-9 pm / Sun 12-6 pm",
+    "shoppingCenter": "Ridge Shopping Center",
+    "closeForEcommerce": 0,
+    "counterService": false,
+    "wholesale": false
+    },
+    {
+    "storeId": 171,
+    "quantity": 2,
+    "distance": 4.3,
+    "latitude": 37.632907,
+    "longitude": -77.540336,
+    "address": "8700 West Broad Street Richmond VA 23294",
+    "PhoneNumber": {
+    "AreaCode": "804",
+    "Prefix": "527",
+    "LineNumber": "4421",
+    "FormattedPhoneNumber": "(804) 527-4421"
+    },
+    "url": "/stores/171",
+    "address1": "8700 West Broad Street",
+    "address2": null,
+    "city": "Richmond",
+    "state": "VA",
+    "zip": "23294",
+    "hours": "Mon-Sat 10 am-10 pm / Sun 10-7 pm",
+    "shoppingCenter": null,
+    "closeForEcommerce": 0,
+    "counterService": false,
+    "wholesale": false
+    }
+    ]
+    }
+    ]
+    }

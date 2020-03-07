@@ -1,0 +1,89 @@
+{
+  "Comment": "Example of how to iterate over an arrray of items in Step Functions",
+  "StartAt": "GetProducts",
+  "States": {
+    "GetProducts": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:356616195343:function:whiskey-get-products:PROD",
+      "ResultPath": "$.workList",
+      "Next": "GetProduct"
+    },
+    "GetProduct": {
+      "Comment": "Extract the first work item from the workList into currentWorkItem.",
+      "Type": "Pass",
+      "InputPath": "$.workList[0]",
+      "ResultPath": "$.currentWorkItem",
+      "Next": "AllProducts"
+    },
+    "AllProducts": {
+      "Comment": "Check if the currentWorkItem is the SENTINEL. If so, we're done. Otherwise, do something.",
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.currentWorkItem",
+          "StringEquals": "SENTINEL",
+          "Next": "DoneProducts"
+        }
+      ],
+      "Default": "StoreProductInfo"
+    },
+    "StoreProductInfo": {
+      "Comment": "Do real work using the currentWorkItem. Change this to be an activity/task.",
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:356616195343:function:store-product-info:PROD",
+      "Next": "NextProduct"
+    },
+    "NextProduct": {
+      "Comment": "Use the slice operator to remove the first item from the list.",
+      "Type": "Pass",
+      "InputPath": "$.workList[1:]",
+      "ResultPath": "$.workList",
+      "Next": "GetProduct"
+    },
+    "DoneProducts": {
+      "Type": "Pass",
+      "Next": "GetUsers"
+    },
+     "GetUsers": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:356616195343:function:getUsers:PROD",
+      "ResultPath": "$.workList",
+      "Next": "GetUser"
+    },
+    "GetUser": {
+      "Comment": "Extract the first work item from the workList into currentWorkItem.",
+      "Type": "Pass",
+      "InputPath": "$.workList[0]",
+      "ResultPath": "$.currentWorkItem",
+      "Next": "AllUsers"
+    },
+    "AllUsers": {
+      "Comment": "Check if the currentWorkItem is the SENTINEL. If so, we're done. Otherwise, do something.",
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.currentWorkItem",
+          "StringEquals": "SENTINEL",
+          "Next": "DoneUsers"
+        }
+      ],
+      "Default": "AlertUser"
+    },
+    "AlertUser": {
+      "Comment": "Do real work using the currentWorkItem. Change this to be an activity/task.",
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:356616195343:function:whiskey-alert-users:PROD",
+      "Next": "NextUser"
+    },
+    "NextUser": {
+      "Comment": "Use the slice operator to remove the first item from the list.",
+      "Type": "Pass",
+      "InputPath": "$.workList[1:]",
+      "ResultPath": "$.workList",
+      "Next": "GetUser"
+    },
+    "DoneUsers": {
+      "Type": "Succeed"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+[
+    {
+        "name": "EH Taylor",
+        "code": "021602",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "EH Taylor SiB",
+        "code": "021589",
+        "notify": []
+    },
+    {
+        "name": "Stagg Jr",
+        "code": "021540",
+        "notify": ["Mark", "Skootch"]
+    },
+    {
+        "name": "Blanton's (375)",
+        "code": "016845",
+        "notify": ["Mark", "Skootch"]
+    },
+    {
+        "name": "Blanton's (750)",
+        "code": "016850",
+        "notify": []
+    },
+    {
+        "name": "Weller 12",
+        "code": "022027",
+        "notify": ["Mark","Skootch"]
+    },
+    {
+        "name": "Old Weller Antique",
+        "code": "022036",
+        "notify": ["Mark", "Skootch"]
+    },
+    {
+        "name": "Weller SR (750)",
+        "code": "021986",
+        "notify": []
+    },
+    {
+        "name": "Weller SR (1.75)",
+        "code": "021988",
+        "notify": []
+    },
+    {
+        "name": "Michter's Sour Mash",
+        "code": "027601",
+        "notify": ["Mark", "Skootch", "Dan"]
+    },
+    {
+        "name": "Michter's Bourbon",
+        "code": "019880",
+        "notify": ["Mark", "Skootch"]
+    },
+    {
+        "name": "Michter's Toasted Barrel Bourbon",
+        "code": "019872",
+        "notify": ["Mark", "Skootch"]
+    },
+    {
+        "name": "Buffalo Trace",
+        "code": "018006",
+        "notify": []
+    },
+    {
+        "name": "Ardbeg Blaaack",
+        "code": "004241",
+        "notify": ["Chad", "Skootch", "Dan"]
+    },
+    {
+        "name": "Elmer T Lee",
+        "code": "017946",
+        "notify": ["Mark", "Skootch", "Dan"]
+    }
+]

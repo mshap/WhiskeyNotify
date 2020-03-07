@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Mark",
+        "topic": "arn:aws:sns:us-east-1:356616195343:mark-whiskey-alert"
+    },
+    {
+        "name": "Skootch",
+        "topic": "arn:aws:sns:us-east-1:356616195343:Skootch"
+    },
+    {
+        "name": "Chad",
+        "topic": "arn:aws:sns:us-east-1:356616195343:Chad-whiskey-alert"
+    },
+    {
+        "name": "Dan",
+        "topic": "arn:aws:sns:us-east-1:356616195343:dan-whiskey-alert"
+    }
+]
