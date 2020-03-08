@@ -41,6 +41,25 @@ const getFile = async (Bucket, Key) => {
     return JSON.parse(data.Body.toString())    
 }
 
+const listLatest = async (Bucket, code) => {
+    const params = {
+        Bucket,
+        Prefix: `history/${code}`
+    };
+
+    const data = await s3.listObjects(params).promise();
+    
+    const keys = data.Contents.sort((a, b) => {
+        const aDate = new Date(a.LastModified)
+        const bDate = new Date(b.LastModified)
+        
+        return (aDate > bDate) ? -1 : 1
+    }).map(obj => obj.Key)
+      .splice(0,2)
+      
+  return keys;
+}
+
 const send = async (TopicArn, Message) => {   
     if (Message === "") {
         console.log(`Nothing to send to ${TopicArn}`)
@@ -62,5 +81,6 @@ module.exports = {
     save: storeProduct,
     get: getFile,
     getProduct: getProduct,
+    list: listLatest,
     send: send
 }

@@ -27,11 +27,29 @@ const buildMessage = async (bucket, codes) => {
     return message;
 }
 
-const isChanged = async (code, bucket) => {
-    const today = await cloud.getProduct(bucket, code)
-    const yesterday = await cloud.getProduct(bucket, code, -1)
+const compareData = async (code, bucket) => {
+    const obj = {
+        now: 0,
+        prior: 0
+    }
+    
+    const keys = await cloud.list(bucket, code)
 
-    return today.totalQuantity > 0 && yesterday.totalQuantity === 0;
+    if (keys.length > 0) {
+        const now = await cloud.get(bucket, keys[0])
+        obj.now = now.totalQuantity
+        
+        if (keys.length ==2) {
+            const prior = await cloud.get(bucket, keys[1])
+            obj.prior = prior.totalQuantity
+        }
+    }
+    
+    return obj;
+}
+
+const isChanged = data => {
+    return data.now > 0 && data.prior === 0
 }
 
 const getProductCodes = async (bucket, user) => {
@@ -41,8 +59,8 @@ const getProductCodes = async (bucket, user) => {
         .filter(product => product.notify.indexOf(user.name) > -1)
         .map(product => product.code)
        
-    const res = await Promise.all(codes.map(product => isChanged(product, bucket)))
-    const changed = codes.filter((v, i) => res[i]);
+    const res = await Promise.all(codes.map(product => compareData(product, bucket)))
+    const changed = codes.filter((code, i) => isChanged(res[i]));
 
     console.log(`Found ${changed.length} updated products`)
 
