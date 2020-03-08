@@ -5,7 +5,7 @@ const s3 = new AWS.S3();
 const sns = new AWS.SNS();
 
 const getProductKey = (code, adjust) => {
-    return `history/${code}/${moment().tz('America/New_York').add(adjust, 'days').format('MM-DD-YYYY')}.json`
+    return `history/${code}/${moment().tz('America/New_York').add(adjust, 'days').format('MM-DD-YYYY HH:MM')}.json`
 }
 
 const storeProduct = async (bucket, code, inventory) => {
