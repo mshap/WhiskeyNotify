@@ -4,5 +4,9 @@ exports.handler = async (event) => {
     let users = await utils.get(event.bucket, 'users.json')
 
     users.push('SENTINEL')
-    return users;
+    
+    event.workList = users
+    event.next = users[0]
+    
+    return event
 };
