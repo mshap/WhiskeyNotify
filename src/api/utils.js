@@ -31,18 +31,22 @@ const isChanged = async (code, bucket) => {
     const today = await cloud.getProduct(bucket, code)
     const yesterday = await cloud.getProduct(bucket, code, -1)
 
-    return today.totalQuantity > 0 && yesterday.totalQuantity == 0;
+    return today.totalQuantity > 0 && yesterday.totalQuantity === 0;
 }
 
 const getProductCodes = async (bucket, user) => {
     let products = await cloud.get(bucket, 'products.json')
 
-    const newCodes = products
+    const codes = products
         .filter(product => product.notify.indexOf(user.name) > -1)
-        .filter(product => isChanged(product.code, bucket))
         .map(product => product.code)
+       
+    const res = await Promise.all(codes.map(product => isChanged(product, bucket)))
+    const changed = codes.filter((v, i) => res[i]);
 
-    return newCodes;
+    console.log(`Found ${changed.length} updated products`)
+
+    return changed
 }
 
 module.exports = {
