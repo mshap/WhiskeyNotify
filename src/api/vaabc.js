@@ -2,7 +2,9 @@ const got = require('got');
 const storeId = 331;
 
 const getProductJson = async (productCode) => {
-    return await got(`https://www.abc.virginia.gov/webapi/inventory/storeNearby?storeNumber=${storeId}&productCode=${productCode}&mileRadius=20&storeCount=5&buffer=0`).json();
+    return await got(
+            `https://www.abc.virginia.gov/webapi/inventory/storeNearby?storeNumber=${storeId}&productCode=${productCode}&mileRadius=20&storeCount=5&buffer=0`,
+            {responseType: 'json', resolveBodyOnly: true})
 }
 
 const hasProduct = result => {
@@ -40,5 +42,9 @@ const getInventory = (storeInfo) => {
 
 module.exports = {
     getProduct: getProductJson,
-    inventory: getInventory
+    inventory: getInventory,
+    hasProduct: hasProduct,
+    buildStore: buildStore
 }
+
+// getProductJson("019880").then((data)=>{console.log(JSON.stringify(data))})
