@@ -1,14 +1,13 @@
 const AWS = require('aws-sdk')
 const moment = require('moment-timezone')
 
-const s3 = new AWS.S3();
-const sns = new AWS.SNS();
-
 const getProductKey = (code, adjust) => {
     return `history/${code}/${moment().tz('America/New_York').add(adjust, 'days').format('MM-DD-YYYY HH:MM')}.json`
 }
 
 const storeProduct = async (bucket, code, inventory) => {
+    const s3 = new AWS.S3();
+
     const key = getProductKey(code)
 
     const params = {
@@ -32,6 +31,8 @@ const getProduct = async (Bucket, code, adjust = 0) => {
 }
 
 const getFile = async (Bucket, Key) => {
+    const s3 = new AWS.S3();
+
     const params = {
         Bucket,
         Key
@@ -42,6 +43,8 @@ const getFile = async (Bucket, Key) => {
 }
 
 const listLatest = async (Bucket, code) => {
+    const s3 = new AWS.S3();
+
     const params = {
         Bucket,
         Prefix: `history/${code}`
@@ -61,6 +64,8 @@ const listLatest = async (Bucket, code) => {
 }
 
 const send = async (TopicArn, Message) => {   
+    const sns = new AWS.SNS();
+
     if (Message === "") {
         console.log(`Nothing to send to ${TopicArn}`)
         return

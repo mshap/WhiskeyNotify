@@ -69,5 +69,7 @@ const getProductCodes = async (bucket, user) => {
 
 module.exports = {
     build: buildMessage,
-    getUserCodes: getProductCodes
+    getUserCodes: getProductCodes,
+    isChanged: isChanged,
+    compareData: compareData
 }
