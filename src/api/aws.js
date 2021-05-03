@@ -18,6 +18,8 @@ const storeProduct = async (bucket, code, inventory) => {
      const save = await s3.putObject(params).promise();
      
      console.log(`File uploaded successfully at history/${code}.json`)
+
+     return save
 }
 
 const getProduct = async (Bucket, code, adjust = 0) => {
@@ -68,7 +70,7 @@ const send = async (TopicArn, Message) => {
 
     if (Message === "") {
         console.log(`Nothing to send to ${TopicArn}`)
-        return
+        return null
     }
     
     const params = {
@@ -80,6 +82,8 @@ const send = async (TopicArn, Message) => {
     const sent = await sns.publish(params).promise()
     
     console.log(sent)
+
+    return sent
 }
 
 module.exports = {
