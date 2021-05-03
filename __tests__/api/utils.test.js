@@ -1,5 +1,5 @@
 
-const utils = require('../src/api/utils')
+const utils = require('../../src/api/utils')
 const AWS = require('aws-sdk')
 
 jest.mock('aws-sdk', () => {

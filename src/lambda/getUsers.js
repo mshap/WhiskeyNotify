@@ -1,7 +1,7 @@
-const utils = require('../api/aws')
+const cloud = require('../api/aws')
 
 exports.handler = async (event) => {
-    let users = await utils.get(event.bucket, 'users.json')
+    let users = await cloud.get(event.bucket, 'users.json')
 
     users.push('SENTINEL')
     

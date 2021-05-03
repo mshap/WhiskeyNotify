@@ -1,4 +1,5 @@
 
+const cloud = require('../../src/api/aws')
 const moment = require('moment-timezone')
 const AWS = require('aws-sdk')
 
@@ -20,7 +21,7 @@ jest.mock('aws-sdk', () => {
         S3: jest.fn(() => S3Mocked),
     }
 })
-const cloud = require('../src/api/aws')
+
 const s3 = new AWS.S3()
 const sns = new AWS.SNS()
 

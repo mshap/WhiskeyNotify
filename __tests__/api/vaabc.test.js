@@ -1,6 +1,6 @@
 jest.mock('got')
 
-const abc = require('../src/api/vaabc')
+const abc = require('../../src/api/vaabc')
 
 test('call site API', async () => {
     const prodId = "666666"
