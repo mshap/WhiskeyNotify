@@ -46,5 +46,3 @@ module.exports = {
     hasProduct: hasProduct,
     buildStore: buildStore
 }
-
-// getProductJson("019880").then((data)=>{console.log(JSON.stringify(data))})
