@@ -1,20 +1,16 @@
 
 const utils = require('../../src/api/utils')
-const AWS = require('aws-sdk')
 
-jest.mock('aws-sdk', () => {
-    const S3Mocked = {
-        listObjects: jest.fn().mockReturnThis(),
-        getObject: jest.fn().mockReturnThis(),
-        promise: jest.fn()
-    }
+const cloud = require('../../src/api/aws')
 
+jest.mock('../../src/api/aws', () => {
     return {
-        S3: jest.fn(() => S3Mocked)
+        send: jest.fn(),
+        getProduct: jest.fn(),
+        list: jest.fn(),
+        get: jest.fn()
     }
 })
-
-const s3 = new AWS.S3();
 
 test('Has New Data', () => {
     expect(utils.isChanged({
@@ -39,16 +35,14 @@ test('Not new data', () => {
 
 describe('Who knows', () => {
     beforeEach(() => {
-        (s3.listObjects().promise).mockReset()
-        s3.getObject().promise.mockReset()
+        cloud.list.mockReset()
+        cloud.get.mockReset()
     })
 
     it('Nothing Returned', async () => {
-        expect(jest.isMockFunction(s3.listObjects)).toBeTruthy()
-        expect(jest.isMockFunction(s3.listObjects().promise)).toBeTruthy()
-        s3.listObjects().promise.mockResolvedValueOnce({
-            Contents: []
-        })
+        expect(jest.isMockFunction(cloud.list)).toBeTruthy()
+        expect(jest.isMockFunction(cloud.get)).toBeTruthy()
+        cloud.list.mockResolvedValueOnce([])
 
         const res = await utils.compareData()
 
@@ -56,47 +50,41 @@ describe('Who knows', () => {
     })
 
     it('One Object', async () => {
-        expect(jest.isMockFunction(s3.getObject)).toBeTruthy()
-        expect(jest.isMockFunction(s3.getObject().promise)).toBeTruthy()
-        s3.listObjects().promise.mockResolvedValueOnce({
-            Contents: [{LastModified: "April 17, 2021, 06:30:20"}]
-        })
-        s3.getObject().promise.mockResolvedValueOnce({Body: Buffer.from(JSON.stringify({totalQuantity:3}), "utf-8")})
+        cloud.list.mockResolvedValueOnce(["1"])
+        cloud.get.mockResolvedValueOnce({totalQuantity:3})
 
-        const res = await utils.compareData()
+        const res = await utils.compareData("123", "Bucket")
 
         expect(res).toEqual({now:3, prior:0})
+        expect(cloud.get).toBeCalledWith("Bucket" ,"1")
+        expect(cloud.get).toBeCalledTimes(1)
     })
 
     it('Two Objects', async () => {
-        s3.listObjects().promise.mockResolvedValueOnce({
-            Contents: [
-                {LastModified: "April 17, 2021, 06:30:20"},
-                {LastModified: "April 18, 2021, 06:30:20"}
-            ]
-        })
-        s3.getObject().promise.mockResolvedValueOnce({Body: Buffer.from(JSON.stringify({totalQuantity:3}), "utf-8")})
-        s3.getObject().promise.mockResolvedValueOnce({Body: Buffer.from(JSON.stringify({totalQuantity:2}), "utf-8")})
+        cloud.list.mockResolvedValueOnce(["1", "2"])
+        cloud.get.mockResolvedValueOnce({totalQuantity:3})
+        cloud.get.mockResolvedValueOnce({totalQuantity:2})
 
-        const res = await utils.compareData()
+        const res = await utils.compareData("123", "Bucket")
 
         expect(res).toEqual({now:3, prior:2})
+        expect(cloud.get).toBeCalledWith("Bucket" ,"1")
+        expect(cloud.get).toBeCalledWith("Bucket" ,"2")
+        expect(cloud.get).toBeCalledTimes(2)
     })
 
     it('More Than Two Objects', async () => {
-        s3.listObjects().promise.mockResolvedValueOnce({
-            Contents: [
-                {LastModified: "April 17, 2021, 06:30:20"},
-                {LastModified: "April 18, 2021, 06:30:20"},
-                {LastModified: "April 19, 2021, 06:30:20"},
-            ]
-        })
-        s3.getObject().promise.mockResolvedValueOnce({Body: Buffer.from(JSON.stringify({totalQuantity:3}), "utf-8")})
-        s3.getObject().promise.mockResolvedValueOnce({Body: Buffer.from(JSON.stringify({totalQuantity:2}), "utf-8")})
-        s3.getObject().promise.mockResolvedValueOnce({Body: Buffer.from(JSON.stringify({totalQuantity:5}), "utf-8")})
+        cloud.list.mockResolvedValueOnce(["1", "2", "3"])
+        cloud.get.mockResolvedValueOnce({totalQuantity:3})
+        cloud.get.mockResolvedValueOnce({totalQuantity:2})
+        cloud.get.mockResolvedValueOnce({totalQuantity:5})
 
-        const res = await utils.compareData()
+
+        const res = await utils.compareData("123", "Bucket")
 
         expect(res).toEqual({now:3, prior:2})
+        expect(cloud.get).toBeCalledWith("Bucket" ,"1")
+        expect(cloud.get).toBeCalledWith("Bucket" ,"2")
+        expect(cloud.get).toBeCalledTimes(2)
     })
 })

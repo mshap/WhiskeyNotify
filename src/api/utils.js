@@ -39,7 +39,7 @@ const compareData = async (code, bucket) => {
         const now = await cloud.get(bucket, keys[0])
         obj.now = now.totalQuantity
         
-        if (keys.length ==2) {
+        if (keys.length >= 2) {
             const prior = await cloud.get(bucket, keys[1])
             obj.prior = prior.totalQuantity
         }
