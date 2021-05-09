@@ -1,0 +1,42 @@
+
+service: whiskey-notification
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+
+package:
+  patterns:
+    - '!__mocks__/**'
+    - '!__tests__/**'
+    - '!node_modules/aws-sdk/**'
+    - '!aws/**'
+    - '!data/**'
+    - 'src/**'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - "s3:*"
+          Resource: "arn:aws:s3:::whiskey-notify-data/*"
+
+plugins:
+  - serverless-step-functions
+functions:
+  getUsers:
+    handler: getUsers.handler
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
