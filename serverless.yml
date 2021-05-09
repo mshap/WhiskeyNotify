@@ -27,16 +27,70 @@ provider:
         - Effect: Allow
           Action:
             - "s3:*"
-          Resource: "arn:aws:s3:::whiskey-notify-data/*"
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - "sns:Publish"
+          Resource: "*"
 
 plugins:
   - serverless-step-functions
 functions:
-  getUsers:
-    handler: getUsers.handler
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
+  get-users:
+    handler: src/lambda/getUsers.handler
+  alert-user:
+    handler: src/lambda/alertUser.handler
+  get-products:
+    handler: src/lambda/getProducts.handler
+  store-product:
+    handler: src/lambda/storeProduct.handler
+
+stepFunctions:
+  stateMachines:
+    whiskeyCheck:
+      name: whiskey-notification-check
+      events:
+        - schedule: cron(30 10,15 * * ? *)
+          name: 'whiskey-notification-execution'
+          input:
+            bucket: "whiskey-notify-data"
+            send: true
+      definition:
+        StartAt: GetProducts
+        States:
+          GetProducts:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [get-products,Arn]
+            Next: GetNextProduct
+          GetNextProduct:
+            Type: Choice
+            Choices:
+              - Variable: "$.next"
+                StringEquals: "SENTINEL"
+                Next: GetUsers
+            Default: StoreProductInfo
+          StoreProductInfo:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [store-product,Arn]
+            Next: GetNextProduct
+          GetUsers:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [get-users,Arn]
+            Next: GetNextUser
+          GetNextUser:
+            Type: Choice
+            Choices:
+              - Variable: "$.next"
+                StringEquals: "SENTINEL"
+                Next: DoneUsers
+            Default: NotifyUser
+          NotifyUser:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [alert-user,Arn]
+            Next: GetNextUser
+          DoneUsers:
+            Type: Succeed
