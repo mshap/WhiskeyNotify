@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "deploy": "serverless deploy -v",
+    "build:test": "npm run test && npm run deploy"
   },
   "author": "",
   "license": "ISC",
