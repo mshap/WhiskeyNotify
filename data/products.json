@@ -22,7 +22,7 @@
     {
         "name": "Blanton's (750)",
         "code": "016850",
-        "notify": []
+        "notify": ["Mark"]
     },
     {
         "name": "Weller 12",
@@ -52,7 +52,7 @@
     {
         "name": "Michter's Bourbon",
         "code": "019880",
-        "notify": ["Mark", "Skootch"]
+        "notify": []
     },
     {
         "name": "Michter's Toasted Barrel Bourbon",
