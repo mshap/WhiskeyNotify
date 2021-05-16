@@ -38,12 +38,8 @@ plugins:
 functions:
   read-list:
     handler: src/lambda/getFileList.handler
-  get-users:
-    handler: src/lambda/getUsers.handler
   alert-user:
     handler: src/lambda/alertUser.handler
-  get-products:
-    handler: src/lambda/getProducts.handler
   store-product:
     handler: src/lambda/storeProduct.handler
 
