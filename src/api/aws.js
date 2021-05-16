@@ -10,6 +10,8 @@ const storeProduct = async (bucket, code, inventory) => {
 
     const key = getProductKey(code)
 
+    inventory.time = moment().tz('America/New_York').format('MM-DD-YYYY HH:MM')
+
     const params = {
          Bucket: bucket, // pass your bucket name
          Key: key, // file will be saved as testBucket/contacts.csv

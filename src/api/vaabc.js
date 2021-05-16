@@ -23,7 +23,8 @@ const buildStore = store => {
 const getInventory = (storeInfo) => {
     let inventory = {
         totalQuantity: 0,
-        stores: []
+        stores: [],
+        productId: storeInfo.productId
     }
 
     if (hasProduct(storeInfo)) {
