@@ -50,7 +50,7 @@ stepFunctions:
     whiskeyCheck:
       name: whiskey-notification-check
       events:
-        - schedule: cron(30 10,15 * * ? *)
+        - schedule: cron(30 15 * * ? *)
           name: 'whiskey-notification-execution'
           input:
             bucket: "whiskey-notify-data"
