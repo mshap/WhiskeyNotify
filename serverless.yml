@@ -36,6 +36,8 @@ provider:
 plugins:
   - serverless-step-functions
 functions:
+  read-list:
+    handler: src/lambda/getFileList.handler
   get-users:
     handler: src/lambda/getUsers.handler
   alert-user:
@@ -56,29 +58,39 @@ stepFunctions:
             bucket: "whiskey-notify-data"
             send: true
       definition:
-        StartAt: GetProducts
+        StartAt: LoadProducts
         States:
+          LoadProducts:
+            Type: Pass
+            Result: "products.json"
+            ResultPath: "$.inputFile"
+            Next: GetProducts
           GetProducts:
             Type: Task
             Resource:
-              Fn::GetAtt: [get-products,Arn]
+              Fn::GetAtt: [read-list,Arn]
             Next: GetNextProduct
           GetNextProduct:
             Type: Choice
             Choices:
               - Variable: "$.next"
                 StringEquals: "SENTINEL"
-                Next: GetUsers
+                Next: LoadUsers
             Default: StoreProductInfo
           StoreProductInfo:
             Type: Task
             Resource:
               Fn::GetAtt: [store-product,Arn]
             Next: GetNextProduct
+          LoadUsers:
+            Type: Pass
+            Result: "users.json"
+            ResultPath: "$.inputFile"
+            Next: GetUsers
           GetUsers:
             Type: Task
             Resource:
-              Fn::GetAtt: [get-users,Arn]
+              Fn::GetAtt: [read-list,Arn]
             Next: GetNextUser
           GetNextUser:
             Type: Choice
