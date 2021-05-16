@@ -177,13 +177,15 @@ describe('Save a File', () => {
         }
         s3.putObject().promise.mockResolvedValueOnce(val)
 
+        const curTime = moment().tz('America/New_York').format('MM-DD-YYYY HH:MM')
+
         const res = await cloud.save("BucketName", "MyKey", inventory)
         expect(res).toBeTruthy()
         expect(res).toEqual(val)
         expect(s3.putObject).toBeCalledWith({
             Bucket: "BucketName", 
-            Key: `history/MyKey/${moment().tz('America/New_York').format('MM-DD-YYYY HH:MM')}.json`,
-            Body: "{}"
+            Key: `history/MyKey/${curTime}.json`,
+            Body: JSON.stringify({time: curTime})
         })
         expect(s3.putObject().promise).toBeCalledTimes(1)
     })

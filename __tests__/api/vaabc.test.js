@@ -56,6 +56,7 @@ test('Multiple Store inventory', async() => {
     const inventory = abc.inventory(json.products[0])
 
     expect(inventory.totalQuantity).toEqual(47)
+    expect(inventory.productId).toEqual(prodId)
     expect(inventory.stores.length).toEqual(json.products[0].nearbyStores.length + 1)
 })
 
@@ -68,5 +69,6 @@ test('Single Store inventory', async() => {
     const inventory = abc.inventory(json.products[0])
 
     expect(inventory.totalQuantity).toEqual(6)
+    expect(inventory.productId).toEqual(prodId)
     expect(inventory.stores.length).toEqual(1)
 })
