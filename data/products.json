@@ -73,5 +73,15 @@
         "name": "Elmer T Lee",
         "code": "017946",
         "notify": ["Mark", "Skootch", "Dan"]
+    },
+    {
+        "name": "Clyde May's Cask Strength",
+        "code": "017522",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Michter's Barrel Strength Rye",
+        "code": "027147",
+        "notify": ["Mark"]
     }
 ]
