@@ -25,13 +25,15 @@ describe('Load User File', () => {
     })
 
     it('load empty file', async() => {
+        const name = "Drank"
         const product = {
-            "name": "Drank",
+            "name": name,
             "code": "111111",
             "notify": ["Mark"]
         }
 
-        const inv = "MyInventory"
+        const inv = {}
+        const updatedInv = {name: name}
 
         abc.getProduct.mockResolvedValueOnce(products[product.code])
         abc.inventory.mockReturnValueOnce(inv)
@@ -50,8 +52,8 @@ describe('Load User File', () => {
         })
 
         expect(abc.getProduct).toBeCalledWith(product.code)
-        expect(abc.inventory).toBeCalledWith(products[product.code].products[0], product.name)
-        expect(cloud.save).toBeCalledWith("Test", product.code, inv)
+        expect(abc.inventory).toBeCalledWith(products[product.code].products[0])
+        expect(cloud.save).toBeCalledWith("Test", product.code, updatedInv)
     })
 
     

@@ -6,7 +6,8 @@ exports.handler = async (event) => {
     
     const json = await abc.getProduct(workItem.code)
 
-    const inventory = abc.inventory(json.products[0], workItem.name)
+    const inventory = abc.inventory(json.products[0])
+    inventory.name = workItem.name
 
     await cloud.save(event.bucket, workItem.code, inventory)
     
