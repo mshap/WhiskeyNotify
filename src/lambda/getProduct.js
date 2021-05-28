@@ -25,21 +25,68 @@ const LaunchRequestHandler = {
     }
 };
 
+const GetLocationIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetLocationIntent';
+    },
+    handle(handlerInput) {
+        const storeId = handlerInput.attributesManager.getSessionAttributes().storeId;
+
+        let msg = null
+
+        if (storeId) {
+            msg = `Your current home store is ${storeId}.`
+        } else {
+            msg = `You have not set your home store yet.`
+        }
+
+        return handlerInput.responseBuilder
+            .speak(msg)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
+const SetLocationIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SetLocationIntent';
+    },
+    async handle(handlerInput) {
+        const storeId = Alexa.getSlotValue(handlerInput.requestEnvelope, 'storeId');
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.storeId = storeId;
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+        return handlerInput.responseBuilder
+            .speak(`Your home store is now set to ${storeId}`)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
 const FindWhiskeyIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'FindWhiskeyIntent';
     },
     async handle(handlerInput) {
-        // const speakOutput = handlerInput.t('HELLO_MSG');
         const productCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'productCode');
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        let json = {}
 
-        const json = await abc.getProduct(productCode)
+        if (sessionAttributes.storeId) {
+            json = await abc.getProduct(productCode, sessionAttributes.storeId)
+        } else {
+            json = await abc.getProduct(productCode)
+        }
 
         const inventory = abc.inventory(json.products[0])
 
         return handlerInput.responseBuilder
-            .speak(`There are ${inventory.totalQuantity} bottles of ${productCode}`)
+            .speak(`There are ${inventory.totalQuantity} bottles of ${productCode} from store ${sessionAttributes.storeId}`)
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }
@@ -68,6 +115,8 @@ const CancelAndStopIntentHandler = {
     },
     handle(handlerInput) {
         const speakOutput = handlerInput.t('GOODBYE_MSG');
+
+        handlerInput.attributesManager.setSessionAttributes({});
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -167,6 +216,8 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         FindWhiskeyIntentHandler,
+        SetLocationIntentHandler,
+        GetLocationIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,

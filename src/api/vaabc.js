@@ -1,7 +1,7 @@
 const got = require('got');
-const storeId = 331;
+// const storeId = 331;
 
-const getProductJson = async (productCode) => {
+const getProductJson = async (productCode, storeId = 331) => {
     return await got(
             `https://www.abc.virginia.gov/webapi/inventory/storeNearby?storeNumber=${storeId}&productCode=${productCode}&mileRadius=20&storeCount=5&buffer=0`,
             {responseType: 'json', resolveBodyOnly: true})
