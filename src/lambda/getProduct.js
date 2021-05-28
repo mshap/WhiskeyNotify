@@ -36,9 +36,9 @@ const GetLocationIntentHandler = {
         let msg = null
 
         if (storeId) {
-            msg = `Your current home store is ${storeId}.`
+            msg = handlerInput.t('LOCATION_MSG', {storeId: storeId})
         } else {
-            msg = `You have not set your home store yet.`
+            msg = handlerInput.t('NO_LOCATION_MSG')
         }
 
         return handlerInput.responseBuilder
@@ -60,7 +60,7 @@ const SetLocationIntentHandler = {
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
 
         return handlerInput.responseBuilder
-            .speak(`Your home store is now set to ${storeId}`)
+            .speak(handlerInput.t('SET_LOCATION_MSG', {storeId: storeId}))
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }
@@ -84,9 +84,14 @@ const FindWhiskeyIntentHandler = {
         }
 
         const inventory = abc.inventory(json.products[0])
+        let msg = handlerInput.t('NO_STOCK_MSG')
+
+        if (inventory.totalQuantity > 0) {
+            msg = handlerInput.t('IN_STOCK_MSG', {bottles: inventory.totalQuantity})
+        }
 
         return handlerInput.responseBuilder
-            .speak(`There are ${inventory.totalQuantity} bottles of ${productCode} from store ${sessionAttributes.storeId}`)
+            .speak(msg)
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }

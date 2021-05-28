@@ -9,8 +9,12 @@ module.exports = {
     en: {
         translation: {
             WELCOME_MSG: 'Welcome to Commonwealth Whiskey. Which would you like to try?',
-            HELLO_MSG: 'Hello World!',
             HELP_MSG: 'You can use me to find whiskey. Trying setting your favorite store ID or asking me for a product code!',
+            SET_LOCATION_MSG: 'Your home store is now set to {{storeId}}',
+            LOCATION_MSG: 'Your current home store is {{storeId}}',
+            NO_LOCATION_MSG: 'You have not set your home store yet.',
+            NO_STOCK_MSG: 'There are no bottles in stock, sorry.',
+            IN_STOCK_MSG: 'I found {{bottles}} in stock',
             GOODBYE_MSG: 'Thanks for searching, Slainte!',
             REFLECTOR_MSG: 'You just triggered {{intentName}}',
             FALLBACK_MSG: 'Sorry, I don\'t know about that. Please try again.',
