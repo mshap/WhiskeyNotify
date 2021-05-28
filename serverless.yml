@@ -42,6 +42,8 @@ functions:
     handler: src/lambda/alertUser.handler
   store-product:
     handler: src/lambda/storeProduct.handler
+  get-product:
+    handler: src/lambda/getProduct.handler
 
 stepFunctions:
   stateMachines:
