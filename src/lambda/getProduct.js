@@ -75,7 +75,7 @@ const FindWhiskeyIntentHandler = {
         const productCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'productCode');
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         
-        let json = {}
+        let json = null
 
         if (sessionAttributes.storeId) {
             json = await abc.getProduct(productCode, sessionAttributes.storeId)
@@ -87,7 +87,35 @@ const FindWhiskeyIntentHandler = {
         let msg = handlerInput.t('NO_STOCK_MSG')
 
         if (inventory.totalQuantity > 0) {
-            msg = handlerInput.t('IN_STOCK_MSG', {bottles: inventory.totalQuantity})
+            msg = handlerInput.t('IN_STOCK_MSG', {bottles: inventory.totalQuantity, stores: inventory.stores.length})
+            sessionAttributes.inventory = inventory
+        } else {
+            sessionAttributes.inventory == null
+        }
+
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+        return handlerInput.responseBuilder
+            .speak(msg)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
+const ListStoresIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ListStoresIntent';
+    },
+    handle(handlerInput) {
+        const inventory = handlerInput.attributesManager.getSessionAttributes().inventory;
+
+        let msg = null
+
+        if (inventory) {
+            msg = handlerInput.t('LOCATION_MSG', {storeId: storeId})
+        } else {
+            msg = handlerInput.t('NO_STOCK_MSG')
         }
 
         return handlerInput.responseBuilder
@@ -159,6 +187,8 @@ const SessionEndedRequestHandler = {
     handle(handlerInput) {
         console.log(`~~~~ Session ended: ${JSON.stringify(handlerInput.requestEnvelope)}`);
         // Any cleanup logic goes here.
+        handlerInput.attributesManager.setSessionAttributes({});
+
         return handlerInput.responseBuilder.getResponse(); // notice we send an empty response
     }
 };
@@ -223,6 +253,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         FindWhiskeyIntentHandler,
         SetLocationIntentHandler,
         GetLocationIntentHandler,
+        ListStoresIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
