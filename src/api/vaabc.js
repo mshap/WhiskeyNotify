@@ -16,7 +16,8 @@ const buildStore = store => {
         description: store.shoppingCenter,
         name: `Store ID: ${store.storeId}`,
         address: store.address,
-        phone: store.PhoneNumber.FormattedPhoneNumber
+        phone: store.PhoneNumber.FormattedPhoneNumber,
+        quantity: store.quantity
     }
 }
 

@@ -34,6 +34,7 @@ test('Create Object', async() => {
     expect(store.name).toEqual("Store ID: 111")
     expect(store.address).toEqual("123 Main St")
     expect(store.phone).toEqual("(555) 555-5555")
+    expect(store.quantity).toEqual(6)
 })
 
 test('Empty store inventory', async() => {
