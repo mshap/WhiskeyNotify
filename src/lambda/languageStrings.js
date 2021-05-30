@@ -15,6 +15,7 @@ module.exports = {
             NO_LOCATION_MSG: 'You have not set your home store yet.',
             NO_STOCK_MSG: 'There are no bottles in stock, sorry.',
             IN_STOCK_MSG: 'I found {{bottles}} in stock at {{stores}} stores.',
+            STORES_MSG: '{{name}} ({{description}}) at {{address}} has {{quantity}} bottles. Call them at {{phone}}.',
             GOODBYE_MSG: 'Thanks for searching, Slainte!',
             REFLECTOR_MSG: 'You just triggered {{intentName}}',
             FALLBACK_MSG: 'Sorry, I don\'t know about that. Please try again.',
