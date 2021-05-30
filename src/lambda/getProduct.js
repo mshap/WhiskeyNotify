@@ -114,7 +114,7 @@ const ListStoresIntentHandler = {
 
         if (inventory) {
             msg = inventory.stores.reduce((buildMsg, store) => {
-                return `${buildMsg} ${handlerInput.t('STORES_MSG' 
+                return `${buildMsg} ${handlerInput.t('STORES_MSG', 
                     {
                         name: store.name,
                         description: store.description,
