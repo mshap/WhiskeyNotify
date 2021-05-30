@@ -113,7 +113,9 @@ const ListStoresIntentHandler = {
         let msg = null
 
         if (inventory) {
-            msg = handlerInput.t('LOCATION_MSG', {storeId: storeId})
+            msg = inventory.stores.reduce((buildMsg, store) => {
+                return `${buildMsg} ${store.name} (${store.description}) at ${store.address} has ${store.quantity} bottles. Call them at ${store.phone}.`
+            }, "")
         } else {
             msg = handlerInput.t('NO_STOCK_MSG')
         }
