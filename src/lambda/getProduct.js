@@ -34,16 +34,18 @@ const GetLocationIntentHandler = {
         const storeId = handlerInput.attributesManager.getSessionAttributes().storeId;
 
         let msg = null
+        let repromt_msg = 'SEARCH_PROMPT'
 
         if (storeId) {
             msg = handlerInput.t('LOCATION_MSG', {storeId: storeId})
         } else {
             msg = handlerInput.t('NO_LOCATION_MSG')
+            repromt_msg = 'NO_LOCATION_MSG'
         }
 
         return handlerInput.responseBuilder
             .speak(msg)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .reprompt(handlerInput.t(repromt_msg))
             .getResponse();
     }
 };
@@ -61,7 +63,7 @@ const SetLocationIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(handlerInput.t('SET_LOCATION_MSG', {storeId: storeId}))
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .reprompt(handlerInput.t('SEARCH_PROMPT'))
             .getResponse();
     }
 };
@@ -97,7 +99,7 @@ const FindWhiskeyIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(msg)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .reprompt(handlerInput.t('STORE_PROMPT'))
             .getResponse();
     }
 };
@@ -130,7 +132,7 @@ const ListStoresIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(msg)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .reprompt(handlerInput.t('SEARCH_PROMPT'))
             .getResponse();
     }
 };
