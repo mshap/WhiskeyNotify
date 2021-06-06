@@ -35,6 +35,9 @@ provider:
 
 plugins:
   - serverless-step-functions
+  - serverless-alexa-skills
+  - serverless-dotenv-plugin
+
 functions:
   read-list:
     handler: src/lambda/getFileList.handler
@@ -44,6 +47,123 @@ functions:
     handler: src/lambda/storeProduct.handler
   get-product:
     handler: src/lambda/getProduct.handler
+
+custom:
+  alexa:
+    vendorId: ${env:AMAZON_VENDOR_ID}
+    clientId: ${env:AMAZON_CLIENT_ID}
+    clientSecret: ${env:AMAZON_CLIENT_SECRET}
+    skills:
+      - id: ${env:ALEXA_SKILL_ID}
+        manifest:
+          apis:
+            custom:
+              endpoint:
+                uri: ${env:URI_ARN}
+          manifestVersion: '1.0'
+          privacyAndCompliance:
+            allowsPurchases: false
+            containsAds: false
+            isChildDirected: false
+            isExportCompliant: true
+            usesPersonalInfo: false
+          publishingInformation:
+            automaticDistribution:
+              isActive: false
+            category: WINE_AND_BEVERAGE
+            distributionCountries: []
+            distributionMode: PUBLIC
+            isAvailableWorldwide: true
+            locales:
+              en-US:
+                description: >-
+                  Based on a "home store", this skill will let you know how many bottles
+                  are available and where through your Alexa! Search by store ID and
+                  product codes to get real-time information about products in the State
+                  of Virginia
+                examplePhrases:
+                  - 'Alexa, ask commonwealth spirits to find 019880'
+                  - 'Alexa, ask commonwealth spirits to tell me my current store'
+                  - 'Alexa, ask commonwealth spirits to tell me which stores'
+                keywords:
+                  - spirits
+                  - abc
+                  - bourbon
+                  - whiskey
+                  - virginia
+                largeIconUri: >-
+                  https://s3.amazonaws.com/CAPS-SSE/echo_developer/b5b9/f9413352b2ca4718b871e97e6c091ff5/APP_ICON_LARGE?versionId=x1pIZSTkuZBUuGOnr2zXVMEv8r7PXqxT&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210606T130600Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPPL3Q3H6%2F20210606%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=42d9bdacf9c26d4ab8f482630f1e75e026ec3e8f9ff3284d24312925bcc3e722
+                name: Sl├íinte
+                smallIconUri: >-
+                  https://s3.amazonaws.com/CAPS-SSE/echo_developer/2871/473a7d0c01b34ac691808b6bb37828af/APP_ICON?versionId=h3rikQxWRMS7Kjl7ufNjHROsmdP1xjnN&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210606T130600Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPPL3Q3H6%2F20210606%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=2782ffb267e1fcae66777a9dde4ca0bcf4123ff972aa2b814c7965d1786acdae
+                summary: >-
+                  Find where spirits available in the state of Virginia through the ABC
+                  store
+            testingInstructions: >-
+              No special instructions. Skill leverages a public API for the Virginia ABC
+              website
+              (https://www.abc.virginia.gov/webapi/inventory/storeNearby?storeNumber=${storeId}&productCode=${productCode}&mileRadius=20&storeCount=5&buffer=0)
+              but is not an official skill for the state.
+
+
+              Valid store IDs to search for: Basically any integer from 32 to 444. A
+              store outside of this range currently does not result in an error, but a
+              search will not return any inventory.
+
+
+              Test ProductCodes: 019880 (may not always be in stock). 019066 should
+              always be in stock. 026826 should always be in stock. Changing store IDs
+              should result in different counts and store results.
+        models:
+          en-US:
+            interactionModel:
+              languageModel:
+                invocationName: commonwealth spirits
+                intents:
+                  - name: AMAZON.CancelIntent
+                    samples:
+                      - cancel this
+                  - name: AMAZON.HelpIntent
+                    samples: []
+                  - name: AMAZON.StopIntent
+                    samples:
+                      - stop
+                  - name: AMAZON.NavigateHomeIntent
+                    samples: []
+                  - name: AMAZON.FallbackIntent
+                    samples: []
+                  - name: FindWhiskeyIntent
+                    slots:
+                      - name: productCode
+                        type: AMAZON.SearchQuery
+                    samples:
+                      - 'find {productCode}'
+                      - 'is there any {productCode} available'
+                      - 'is there any {productCode} nearby'
+                      - 'find product {productCode}'
+                  - name: SetLocationIntent
+                    slots:
+                      - name: storeId
+                        type: AMAZON.NUMBER
+                    samples:
+                      - 'set {storeId} as my store'
+                      - 'search from store {storeId}'
+                      - '{storeId} is my favorite store'
+                  - name: GetLocationIntent
+                    slots: []
+                    samples:
+                      - tell me my current store
+                      - what is my current store
+                  - name: ListStoresIntent
+                    slots: []
+                    samples:
+                      - where is that
+                      - which stores
+                      - tell me which stores
+                types: []
+                modelConfiguration:
+                  fallbackIntentSensitivity:
+                    level: LOW
 
 stepFunctions:
   stateMachines:
