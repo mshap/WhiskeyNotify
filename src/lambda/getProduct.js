@@ -64,6 +64,17 @@ const SetLocationIntentHandler = {
 	},
 	async handle(handlerInput) {
 		const storeId = Alexa.getSlotValue(handlerInput.requestEnvelope, 'storeId')
+
+		if (isNaN(storeId)) {
+			return (
+				handlerInput.responseBuilder
+					.speak(handlerInput.t('INVALIDLOCATION_MSG'))
+					// .reprompt(handlerInput.t('SEARCH_PROMPT'))
+					.withShouldEndSession(true)
+					.getResponse()
+			)
+		}
+
 		const sessionAttributes =
 			handlerInput.attributesManager.getSessionAttributes()
 		sessionAttributes.storeId = storeId
@@ -148,10 +159,13 @@ const ListStoresIntentHandler = {
 			msg = handlerInput.t('NO_STOCK_MSG')
 		}
 
-		return handlerInput.responseBuilder
-			.speak(msg)
-			.reprompt(handlerInput.t('SEARCH_PROMPT'))
-			.getResponse()
+		return (
+			handlerInput.responseBuilder
+				.speak(msg)
+				.withShouldEndSession(true)
+				// .reprompt(handlerInput.t('SEARCH_PROMPT'))
+				.getResponse()
+		)
 	}
 }
 
@@ -206,10 +220,13 @@ const FallbackIntentHandler = {
 	handle(handlerInput) {
 		const speakOutput = handlerInput.t('FALLBACK_MSG')
 
-		return handlerInput.responseBuilder
-			.speak(speakOutput)
-			.reprompt(speakOutput)
-			.getResponse()
+		return (
+			handlerInput.responseBuilder
+				.speak(speakOutput)
+				.withShouldEndSession(true)
+				// .reprompt(speakOutput)
+				.getResponse()
+		)
 	}
 }
 /* *

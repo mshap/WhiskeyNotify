@@ -11,20 +11,25 @@ module.exports = {
 			WELCOME_MSG:
 				'Welcome to Commonwealth Spirits. Which would you like to try?',
 			HELP_MSG:
-				'You can use me to find whiskey. Trying setting your favorite store ID or asking me for a product code!',
-			SET_LOCATION_MSG: 'Your home store is now set to {{storeId}}',
-			LOCATION_MSG: 'Your current home store is {{storeId}}',
+				'You can use me to find whiskey and other spirits. Trying setting your favorite store ID or asking me for a product by code!',
+			SET_LOCATION_MSG:
+				"Your home store is now set to {{storeId}}. You can ask me 'find 123456' to search for items near this store.",
+			INVALIDLOCATION_MSG:
+				'You specified an invalid storeId. This value must be numeric.',
+			LOCATION_MSG:
+				"Your current home store is {{storeId}}. You can ask me 'find 123456' to search for items near this store.",
 			NO_LOCATION_MSG:
-				"You have not set your home store yet. Tell me 'Search from StoreId' to set one.",
+				"You have not set your home store yet. You can tell me 'Search from 300' to set one.",
 			NO_STOCK_MSG: 'There are no bottles in stock, sorry.',
-			IN_STOCK_MSG: 'I found {{bottles}} in stock at {{stores}} stores.',
+			IN_STOCK_MSG:
+				"I found {{bottles}} in stock at {{stores}} stores. If you would to hear where you can find them, ask me 'Which stores'",
 			STORES_MSG:
 				'{{name}} ({{description}}) at {{address}} has {{quantity}} bottles. Call them at {{phone}}.',
 			SEARCH_PROMPT:
-				"Would you like to search for a product? Ask 'find ProductCode'.",
+				"Would you like to search for a product? You can ask me 'find 123456' to search for items.",
 			STORE_PROMPT:
 				"Would you like to know which stores have this item in stock? Ask 'Which stores'.",
-			GOODBYE_MSG: 'Thanks for searching, Slainte!',
+			GOODBYE_MSG: 'Thanks for searching, cheers!',
 			REFLECTOR_MSG: 'You just triggered {{intentName}}',
 			FALLBACK_MSG: "Sorry, I don't know about that. Please try again.",
 			ERROR_MSG: 'Sorry, I had trouble doing what you asked. Please try again.'
