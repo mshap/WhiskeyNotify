@@ -112,6 +112,7 @@ const FindWhiskeyIntentHandler = {
 
 		const inventory = abc.inventory(json.products[0])
 		let msg = handlerInput.t('NO_STOCK_MSG')
+		let endSession = false
 
 		if (inventory.totalQuantity > 0) {
 			msg = handlerInput.t('IN_STOCK_MSG', {
@@ -121,6 +122,7 @@ const FindWhiskeyIntentHandler = {
 			sessionAttributes.inventory = inventory
 		} else {
 			sessionAttributes.inventory == null
+			endSession = true
 		}
 
 		handlerInput.attributesManager.setSessionAttributes(sessionAttributes)
@@ -128,6 +130,7 @@ const FindWhiskeyIntentHandler = {
 		return handlerInput.responseBuilder
 			.speak(msg)
 			.reprompt(handlerInput.t('STORE_PROMPT'))
+			.withShouldEndSession(endSession)
 			.getResponse()
 	}
 }
