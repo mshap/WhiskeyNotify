@@ -7,7 +7,52 @@
     {
         "name": "EH Taylor SiB",
         "code": "021589",
-        "notify": []
+        "notify": ["Mark"]
+    },
+    {
+        "name": "EH Taylor BP",
+        "code": "021600",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "EH Taylor Rye",
+        "code": "027101",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "George T Stagg",
+        "code": "018416",
+        "notify": ["Mark","Skootch"]
+    },
+    {
+        "name": "Old Forester 150 Anniversary BP",
+        "code": "101052",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Old Forester Bday",
+        "code": "000612",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Old Forester Bday 2018",
+        "code": "100480",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Old Forester Bday 2019",
+        "code": "100736",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Old Forester 150 Anniversary BP",
+        "code": "101052",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Elijah Craig 18",
+        "code": "017920",
+        "notify": ["Mark"]
     },
     {
         "name": "Stagg Jr",
@@ -45,18 +90,63 @@
         "notify": []
     },
     {
+        "name": "Weller FP",
+        "code": "022044",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Weller CYPB",
+        "code": "022042",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Weller SiB",
+        "code": "022046",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Old RVW 10",
+        "code": "020140",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Old RVW 13 Rye",
+        "code": "027106",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Pappy 15",
+        "code": "020150",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Pappy 20",
+        "code": "021016",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Pappy 23",
+        "code": "021030",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Pappy 12",
+        "code": "021906",
+        "notify": ["Mark"]
+    },
+    {
         "name": "Michter's Sour Mash",
         "code": "027601",
         "notify": ["Mark", "Skootch", "Dan"]
     },
     {
-        "name": "Michter's Bourbon",
-        "code": "019880",
-        "notify": []
-    },
-    {
         "name": "Michter's Toasted Barrel Bourbon",
         "code": "019872",
+        "notify": ["Mark", "Skootch"]
+    },
+    {
+        "name": "Michter's Toasted Barrel Rye",
+        "code": "027219",
         "notify": ["Mark", "Skootch"]
     },
     {
@@ -82,6 +172,21 @@
     {
         "name": "Michter's Barrel Strength Rye",
         "code": "027147",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Michter's Bourbon 10yr",
+        "code": "019876",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "Michter's Rye 10yr",
+        "code": "027062",
+        "notify": ["Mark"]
+    },
+    {
+        "name": "McKenna 10yr SiB",
+        "code": "018656",
         "notify": ["Mark"]
     },
     {
