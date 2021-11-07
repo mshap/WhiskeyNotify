@@ -4,7 +4,7 @@ const gateway = require('../../src/api/gateway')
 jest.mock('../../src/api/gateway', () => {
 	return {
 		users: jest.fn(),
-		products: jest.fn()
+		userProducts: jest.fn()
 	}
 })
 
@@ -18,7 +18,7 @@ describe('Load User File', () => {
 
 	afterEach(() => {
 		gateway.users.mockReset()
-		gateway.products.mockReset()
+		gateway.userProducts.mockReset()
 
 		process.env = OLD_ENV
 	})
@@ -51,12 +51,12 @@ describe('Load User File', () => {
 		const bucket = 'anotherBucket'
 		const user = 'Tyler'
 		process.env.BUCKET_NAME = bucket
-		gateway.products.mockResolvedValueOnce(products)
+		gateway.userProducts.mockResolvedValueOnce(products)
 
-		expect(jest.isMockFunction(gateway.products)).toBeTruthy()
+		expect(jest.isMockFunction(gateway.userProducts)).toBeTruthy()
 
 		const res = await lambda.products({ pathParameters: { user } })
-		expect(gateway.products).toBeCalledWith(user, bucket)
+		expect(gateway.userProducts).toBeCalledWith(user, bucket)
 		expect(res).toBeTruthy()
 		expect(res.statusCode).toEqual(200)
 		expect(res.body).toEqual(JSON.stringify(products))

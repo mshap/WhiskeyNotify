@@ -17,7 +17,7 @@ const list = async event => {
 
 const products = async event => {
 	const bucket = process.env.BUCKET_NAME
-	const products = await gateway.products(event.pathParameters.user, bucket)
+	const products = await gateway.userProducts(event.pathParameters.user, bucket)
 
 	let response = {
 		statusCode: 200,

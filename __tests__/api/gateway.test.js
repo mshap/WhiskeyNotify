@@ -48,8 +48,7 @@ describe('Notifications', () => {
 		expect(jest.isMockFunction(cloud.get)).toBeTruthy()
 		cloud.get.mockResolvedValueOnce(products)
 
-		const res = await gateway.products('badname')
-		console.log(res)
+		const res = await gateway.userProducts('badname')
 		expect(res).not.toBeNull()
 		expect(res.length).toEqual(0)
 	})
@@ -58,7 +57,7 @@ describe('Notifications', () => {
 		expect(jest.isMockFunction(cloud.get)).toBeTruthy()
 		cloud.get.mockResolvedValueOnce(products)
 
-		const res = await gateway.products('Donald')
+		const res = await gateway.userProducts('Donald')
 		expect(res).not.toBeNull()
 		expect(res.length).toEqual(1)
 		expect(res[0]).toBe('Buffalo Trace')
@@ -68,7 +67,7 @@ describe('Notifications', () => {
 		expect(jest.isMockFunction(cloud.get)).toBeTruthy()
 		cloud.get.mockResolvedValueOnce(products)
 
-		const res = await gateway.products('John')
+		const res = await gateway.userProducts('John')
 		expect(res).not.toBeNull()
 		expect(res.length).toEqual(19)
 		expect(res[18]).toBe('High West A Midwinter Nights Dram')

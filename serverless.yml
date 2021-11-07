@@ -64,6 +64,12 @@ functions:
             parameters:
               paths:
                 user: true
+  list-products:
+    handler: src/lambda/productApi.list
+    events:
+      - http:
+          path: products
+          method: get
 
 custom:
   alexa:
