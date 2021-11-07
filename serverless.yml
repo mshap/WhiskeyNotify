@@ -18,7 +18,7 @@ package:
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   lambdaHashingVersion: 20201221
   environment:
     BUCKET_NAME: whiskey-notify-data
@@ -40,7 +40,7 @@ plugins:
   - serverless-dotenv-plugin
 
 functions:
-  read-list:
+  read-file-list:
     handler: src/lambda/getFileList.handler
   alert-user:
     handler: src/lambda/alertUser.handler
@@ -209,7 +209,7 @@ stepFunctions:
           GetProducts:
             Type: Task
             Resource:
-              Fn::GetAtt: [read-list, Arn]
+              Fn::GetAtt: [read-file-list, Arn]
             Next: GetNextProduct
           GetNextProduct:
             Type: Choice
@@ -231,7 +231,7 @@ stepFunctions:
           GetUsers:
             Type: Task
             Resource:
-              Fn::GetAtt: [read-list, Arn]
+              Fn::GetAtt: [read-file-list, Arn]
             Next: GetNextUser
           GetNextUser:
             Type: Choice
