@@ -1,4 +1,3 @@
-
 service: whiskey-notification
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
@@ -21,17 +20,19 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
+  environment:
+    BUCKET_NAME: whiskey-notify-data
   iam:
     role:
       statements:
         - Effect: Allow
           Action:
-            - "s3:*"
-          Resource: "*"
+            - 's3:*'
+          Resource: '*'
         - Effect: Allow
           Action:
-            - "sns:Publish"
-          Resource: "*"
+            - 'sns:Publish'
+          Resource: '*'
 
 plugins:
   - serverless-step-functions
@@ -47,6 +48,22 @@ functions:
     handler: src/lambda/storeProduct.handler
   get-product:
     handler: src/lambda/getProduct.handler
+  list-users:
+    handler: src/lambda/userApi.list
+    events:
+      - http:
+          path: users
+          method: get
+  list-user-products:
+    handler: src/lambda/userApi.products
+    events:
+      - http:
+          path: users/{user}
+          method: get
+          request:
+            parameters:
+              paths:
+                user: true
 
 custom:
   alexa:
@@ -173,54 +190,54 @@ stepFunctions:
         - schedule: cron(30 15 * * ? *)
           name: 'whiskey-notification-execution'
           input:
-            bucket: "whiskey-notify-data"
+            bucket: 'whiskey-notify-data'
             send: true
       definition:
         StartAt: LoadProducts
         States:
           LoadProducts:
             Type: Pass
-            Result: "products.json"
-            ResultPath: "$.inputFile"
+            Result: 'products.json'
+            ResultPath: '$.inputFile'
             Next: GetProducts
           GetProducts:
             Type: Task
             Resource:
-              Fn::GetAtt: [read-list,Arn]
+              Fn::GetAtt: [read-list, Arn]
             Next: GetNextProduct
           GetNextProduct:
             Type: Choice
             Choices:
-              - Variable: "$.next"
-                StringEquals: "SENTINEL"
+              - Variable: '$.next'
+                StringEquals: 'SENTINEL'
                 Next: LoadUsers
             Default: StoreProductInfo
           StoreProductInfo:
             Type: Task
             Resource:
-              Fn::GetAtt: [store-product,Arn]
+              Fn::GetAtt: [store-product, Arn]
             Next: GetNextProduct
           LoadUsers:
             Type: Pass
-            Result: "users.json"
-            ResultPath: "$.inputFile"
+            Result: 'users.json'
+            ResultPath: '$.inputFile'
             Next: GetUsers
           GetUsers:
             Type: Task
             Resource:
-              Fn::GetAtt: [read-list,Arn]
+              Fn::GetAtt: [read-list, Arn]
             Next: GetNextUser
           GetNextUser:
             Type: Choice
             Choices:
-              - Variable: "$.next"
-                StringEquals: "SENTINEL"
+              - Variable: '$.next'
+                StringEquals: 'SENTINEL'
                 Next: DoneUsers
             Default: NotifyUser
           NotifyUser:
             Type: Task
             Resource:
-              Fn::GetAtt: [alert-user,Arn]
+              Fn::GetAtt: [alert-user, Arn]
             Next: GetNextUser
           DoneUsers:
             Type: Succeed

@@ -1,0 +1,123 @@
+[
+    {
+        "name": "Weller FP",
+        "code": "022044",
+        "notify": ["John"]
+    },
+    {
+        "name": "Weller CYPB",
+        "code": "022042",
+        "notify": ["John"]
+    },
+    {
+        "name": "Weller SiB",
+        "code": "022046",
+        "notify": ["John"]
+    },
+    {
+        "name": "Old RVW 10",
+        "code": "020140",
+        "notify": ["John"]
+    },
+    {
+        "name": "Old RVW 13 Rye",
+        "code": "027106",
+        "notify": ["John"]
+    },
+    {
+        "name": "Pappy 15",
+        "code": "020150",
+        "notify": ["John"]
+    },
+    {
+        "name": "Pappy 20",
+        "code": "021016",
+        "notify": ["John"]
+    },
+    {
+        "name": "Pappy 23",
+        "code": "021030",
+        "notify": ["John"]
+    },
+    {
+        "name": "Pappy 12",
+        "code": "021906",
+        "notify": ["John"]
+    },
+    {
+        "name": "Michter's Sour Mash",
+        "code": "027601",
+        "notify": ["John", "Reginald", "Sally"]
+    },
+    {
+        "name": "Michter's Toasted Barrel Bourbon",
+        "code": "019872",
+        "notify": ["John", "Reginald"]
+    },
+    {
+        "name": "Michter's Toasted Barrel Rye",
+        "code": "027219",
+        "notify": ["John", "Reginald"]
+    },
+    {
+        "name": "Buffalo Trace",
+        "code": "018006",
+        "notify": ["Donald"]
+    },
+    {
+        "name": "Ardbeg Blaaack",
+        "code": "004241",
+        "notify": ["Chad", "Reginald", "Sally"]
+    },
+    {
+        "name": "Elmer T Lee",
+        "code": "017946",
+        "notify": ["John", "Reginald", "Sally"]
+    },
+    {
+        "name": "Clyde May's Cask Strength",
+        "code": "017522",
+        "notify": ["John"]
+    },
+    {
+        "name": "Michter's Barrel Strength Rye",
+        "code": "027147",
+        "notify": ["John"]
+    },
+    {
+        "name": "Michter's Bourbon 10yr",
+        "code": "019876",
+        "notify": ["John"]
+    },
+    {
+        "name": "Michter's Rye 10yr",
+        "code": "027062",
+        "notify": ["John"]
+    },
+    {
+        "name": "McKenna 10yr SiB",
+        "code": "018656",
+        "notify": ["John"]
+    },
+    {
+        "name": "High West A Midwinter Nights Dram",
+        "code": "027041",
+        "notify": ["John", "Reginald"]
+    },
+    {
+        "name": "Ardbeg Scorch Committee Release Scotch",
+        "code": "004251",
+        "notify": ["Reginald"]
+    },
+    {
+        "name": "Ardbeg Scorch General Release Scotch",
+        "code": "101457",
+        "notify": ["Reginald"]
+    },
+    {
+        "name": "Laphroaig Cairdeas Port And Wine Casks",
+        "code": "005434",
+        "notify": ["Reginald"]
+    }
+    
+]
